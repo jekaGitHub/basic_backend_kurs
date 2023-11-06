@@ -15,8 +15,7 @@ def get_mask_number_card(number: str) -> str:
         :return: замаскированный номер карты
     """
     if len(number) != 16:
-        # return 'Некорректный номер. Введите номер снова.'
-        raise ValueError('Некорректный номер. Введите номер снова.')
+        return 'Некорректный номер. Введите номер снова.'
     return number[:4] + " " + number[4:6] + "**" + " " + "****" + " " + number[-4:]
 
 
@@ -28,8 +27,7 @@ def get_mask_number_bill(number: str) -> str:
     """
 
     if len(number) != 20:
-        # return 'Некорректный номер. Введите номер снова.'
-        raise ValueError('Некорректный номер. Введите номер снова.')
+        return 'Некорректный номер. Введите номер снова.'
     return "**" + number[-4:]
 
 
@@ -58,8 +56,8 @@ def get_date_formatting(str_date: str) -> str:
         :param str_date: строка, содержащая дату
         :return: строка с датой в виде "дд.мм.гггг"
     """
-
-    return datetime.datetime.strptime(str_date, '%Y-%m-%d %H:%M:%S.%f').strftime('%d.%m.%Y')
+    dt_str = datetime.datetime.fromisoformat(str_date)
+    return dt_str.strftime('%d.%m.%Y')
 
 
 def get_list_dictionary_by_key(list_dictionaries: list, state: str = 'EXECUTED') -> list:
@@ -70,7 +68,7 @@ def get_list_dictionary_by_key(list_dictionaries: list, state: str = 'EXECUTED')
     :param state: значение для ключа state, по умолчанию = EXECUTED
     :return: список словарей, содержащий ключ со значением аргумента state
     """
-    result_list = [item for item in list_dictionaries if item["state"] == state]
+    result_list = [item for item in list_dictionaries if item.get("state") == state]
     return result_list
 
 

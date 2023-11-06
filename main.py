@@ -14,4 +14,8 @@ if __name__ == '__main__':
     # забираем только последние 5 операций из списка операций
     list_five_operations = list_by_date[:5]
 
-    print(executed_operations_list)
+    for item in list_five_operations:
+        print(f'{get_date_formatting(item["date"])} {item["description"]}')
+        print(f'{get_mask_deposit(item.get("from", "Нет данных"))} -> {get_mask_deposit(item.get("to"))}')
+        print(f'{item["operationAmount"]["amount"]} {item["operationAmount"]["currency"]["name"]}')
+        print("")
